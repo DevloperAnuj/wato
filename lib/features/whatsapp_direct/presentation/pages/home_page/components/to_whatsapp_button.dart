@@ -1,5 +1,14 @@
+import 'package:country_calling_code_picker/country.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_to_whatsapp/whatsapp_share.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/country_code_logic/country_code_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/is_whatsapp_business_logic/is_whatsapp_business_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/link_logic/linl_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/message_logic/message_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/phone_number_logic/phone_number_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/pick_files_logic/pick_files_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/to_whatsapp_logic/to_whatsapp_logic_cubit.dart';
 
 class ToWhatsAppButton extends StatelessWidget {
   const ToWhatsAppButton({
@@ -11,52 +20,113 @@ class ToWhatsAppButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 30),
-        child: ElevatedButton.icon(
-          onPressed: () {
-            sendToWhatsApp(
-              package: Package.businessWhatsapp,
-              text: "WhatsApp Text",
-              phone: "917517985137",
-              files: [],
-              link: "https://imalpha.co.in",
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
+        child: BlocBuilder<IsWhatsappBusinessCubit, int>(
+          builder: (context, packageCode) {
+            return BlocBuilder<CountryCodeLogicCubit, Country?>(
+              builder: (context, country) {
+                return BlocBuilder<PhoneNumberLogicCubit, String?>(
+                  builder: (context, phoneNumber) {
+                    return BlocBuilder<PickFilesLogicCubit, List<String>>(
+                      builder: (context, pickedFiles) {
+                        return BlocBuilder<MessageLogicCubit, String?>(
+                          builder: (context, messageText) {
+                            return BlocBuilder<LinkLogicCubit, String?>(
+                              builder: (context, linkText) {
+                                return ElevatedButton.icon(
+                                  onPressed: () {
+                                    sendToWhatsApp(
+                                      context,
+                                      package: packageCode == 0
+                                          ? Package.whatsapp
+                                          : Package.businessWhatsapp,
+                                      text: messageText,
+                                      phone:
+                                          "${country!.callingCode.substring(1)}$phoneNumber",
+                                      files: pickedFiles,
+                                      link: linkText,
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  icon: const Icon(
+                                    Icons.send,
+                                    color: Colors.white,
+                                  ),
+                                  label: Text(packageCode == 0
+                                      ? 'To WhatsApp'
+                                      : "To WhatsApp Business"),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              },
             );
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
-            foregroundColor: Colors.white,
-          ),
-          icon: const Icon(
-            Icons.send,
-            color: Colors.white,
-          ),
-          label: const Text(' To WhatsApp'),
         ),
       ),
     );
   }
 
-  Future<void> sendToWhatsApp({
+  Future<void> sendToWhatsApp(
+    BuildContext context, {
     required List<String> files,
     required Package package,
     required String phone,
     required String? link,
     required String? text,
   }) async {
-    if (files.isNotEmpty) {
-      await WhatsappShare.shareFile(
-        filePath: files,
-        phone: phone,
-        text: text,
-        package: package,
+    if (phone.length < 7 ) {
+      showTheSnackBar(
+        context,
+        text: "Phone Number is Not Valid",
+        color: Colors.red,
       );
-    } else {
-      await WhatsappShare.share(
-        text: text,
-        linkUrl: link,
-        phone: phone,
-        package: package,
-      );
+      return;
     }
+    if (text!.isEmpty) {
+      showTheSnackBar(
+        context,
+        text: "Message Can't be Empty",
+        color: Colors.red,
+      );
+      return;
+    }
+    toggleFocus(context);
+    context.read<ToWhatsappLogicCubit>().sendToWhatsApp(
+          files: files,
+          package: package,
+          phone: phone,
+          link: link,
+          text: text,
+        );
+  }
+
+  void toggleFocus(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
+  void showTheSnackBar(BuildContext context,
+      {required String text, required Color color}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
+        duration: const Duration(seconds: 2),
+        backgroundColor: color,
+      ),
+    );
   }
 }

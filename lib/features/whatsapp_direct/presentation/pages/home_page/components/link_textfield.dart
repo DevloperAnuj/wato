@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wato/features/whatsapp_direct/presentation/manager/message_logic/message_logic_cubit.dart';
+import 'package:wato/features/whatsapp_direct/presentation/manager/link_logic/linl_logic_cubit.dart';
 
-class JustTextField extends StatelessWidget {
-  const JustTextField({
+class LinkTextField extends StatelessWidget {
+
+  const LinkTextField({
     super.key,
   });
 
@@ -11,20 +12,19 @@ class JustTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      child: BlocBuilder<MessageLogicCubit, String?>(
-        builder: (context, messageText) {
+      child: BlocBuilder<LinkLogicCubit, String?>(
+        builder: (context, linkText) {
           return TextFormField(
             onChanged: (text) {
-              context.read<MessageLogicCubit>().setMessageText(text);
+              context.read<LinkLogicCubit>().setLinkText(text);
             },
-            initialValue: messageText,
+            initialValue: linkText,
             style: const TextStyle(color: Colors.black),
-            keyboardType: TextInputType.text,
-            minLines: 1,
-            maxLines: 3,
+            keyboardType: TextInputType.url,
+            maxLines: 1,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'Your Message',
+              hintText: 'Link Text (Optional)',
               hintStyle: const TextStyle(color: Colors.grey),
               filled: true,
               fillColor: Colors.transparent,
