@@ -91,7 +91,7 @@ class ToWhatsAppButton extends StatelessWidget {
       );
       return;
     }
-    if (text!.isEmpty) {
+    if (text!.isEmpty && files.isEmpty) {
       showTheSnackBar(
         context,
         text: "Message Can't be Empty",

@@ -14,12 +14,6 @@ class ToWhatsappLogicCubit extends Cubit<ToWhatsappLogicState> {
     required String? link,
     required String? text,
   }) async {
-    print("===================");
-    print(files);
-    print(phone);
-    print(link);
-    print(text);
-    print("===================");
     if (files.isNotEmpty) {
       await WhatsappShare.shareFile(
         filePath: files,

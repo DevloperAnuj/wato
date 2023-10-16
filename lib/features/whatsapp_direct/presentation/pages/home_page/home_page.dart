@@ -57,12 +57,27 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Text("WA to"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/wato.png',
+                height: 35,
+                width: 40,
+              ),
+              const Text(
+                "WAto",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
           centerTitle: true,
           elevation: 0,
         ),
         body: GestureDetector(
-          onTap: (){
+          onTap: () {
             toggleFocus(context);
           },
           child: SingleChildScrollView(
@@ -98,5 +113,4 @@ class _MyHomePageState extends State<MyHomePage> {
       currentFocus.unfocus();
     }
   }
-
 }
