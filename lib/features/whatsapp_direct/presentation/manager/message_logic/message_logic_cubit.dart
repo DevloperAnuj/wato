@@ -5,7 +5,7 @@ part 'message_logic_state.dart';
 
 class MessageLogicCubit extends Cubit<String?> {
 
-  MessageLogicCubit() : super("Hello from WAto");
+  MessageLogicCubit() : super("Hello from WAto !");
 
   String _messageText = "";
 
