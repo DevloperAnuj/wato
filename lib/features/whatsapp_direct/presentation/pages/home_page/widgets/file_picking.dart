@@ -39,7 +39,7 @@ class FilePicking extends StatelessWidget {
                       padding: const EdgeInsets.all(5.0),
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          context.read<AppOpenAdLogicCubit>().skipFilePick(false);
+                          context.read<AppOpenAdLogicCubit>().skipFilePick();
                           context.read<PickFilesLogicCubit>().pickFiles();
                         },
                         icon: const Icon(Icons.file_copy),
@@ -60,8 +60,8 @@ class FilePicking extends StatelessWidget {
                               child: Column(
                                 children: [
                                   IconButton(
-                                    icon: const Icon(
-                                        Icons.file_present_rounded),
+                                    icon:
+                                        const Icon(Icons.file_present_rounded),
                                     iconSize: 40,
                                     onPressed: () {
                                       context

@@ -10,10 +10,10 @@ class AppOpenAdLogicCubit extends Cubit<AppOpenAdLogicState> {
   AppOpenAdLogicCubit() : super(AppOpenAdLogicInitial());
 
   //Skip Showing Add When File Picking
-  late bool filePickCall;
+  late bool filePickCall = true;
 
-  void skipFilePick(bool pick) {
-    filePickCall = pick;
+  void skipFilePick() {
+    filePickCall = false;
   }
 
   //App State Listening Logic
@@ -30,6 +30,8 @@ class AppOpenAdLogicCubit extends Cubit<AppOpenAdLogicState> {
     if (appState == AppState.foreground) {
       if (filePickCall) {
         _displayAppOpenAd();
+      } else {
+        filePickCall = true;
       }
     }
   }

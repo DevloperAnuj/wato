@@ -129,7 +129,6 @@ class ToWhatsAppButton extends StatelessWidget {
       );
       return;
     }
-    context.read<AppOpenAdLogicCubit>().skipFilePick(true);
     toggleFocus(context);
     context.read<ToWhatsappLogicCubit>().sendToWhatsApp(
           files: files,

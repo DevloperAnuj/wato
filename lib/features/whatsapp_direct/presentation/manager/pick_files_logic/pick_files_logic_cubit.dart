@@ -6,6 +6,7 @@ import 'dart:io';
 part 'pick_files_logic_state.dart';
 
 class PickFilesLogicCubit extends Cubit<List<String>> {
+
   PickFilesLogicCubit() : super(<String>[]);
 
   final List<String> _filesList = [];
