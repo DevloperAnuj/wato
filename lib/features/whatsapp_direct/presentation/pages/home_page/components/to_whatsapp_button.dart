@@ -2,6 +2,8 @@ import 'package:country_calling_code_picker/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_to_whatsapp/whatsapp_share.dart';
+import 'package:wato/config/service_locator.dart';
+import 'package:wato/features/advertisement/presentation/manager/app_open_ad_logic/app_open_ad_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/country_code_logic/country_code_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/is_whatsapp_business_logic/is_whatsapp_business_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/link_logic/linl_logic_cubit.dart';
@@ -19,57 +21,85 @@ class ToWhatsAppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
-        child: BlocBuilder<IsWhatsappBusinessCubit, int>(
-          builder: (context, packageCode) {
-            return BlocBuilder<CountryCodeLogicCubit, Country?>(
-              builder: (context, country) {
-                return BlocBuilder<PhoneNumberLogicCubit, String?>(
-                  builder: (context, phoneNumber) {
-                    return BlocBuilder<PickFilesLogicCubit, List<String>>(
-                      builder: (context, pickedFiles) {
-                        return BlocBuilder<MessageLogicCubit, String?>(
-                          builder: (context, messageText) {
-                            return BlocBuilder<LinkLogicCubit, String?>(
-                              builder: (context, linkText) {
-                                return ElevatedButton.icon(
-                                  onPressed: () {
-                                    sendToWhatsApp(
-                                      context,
-                                      package: packageCode == 0
-                                          ? Package.whatsapp
-                                          : Package.businessWhatsapp,
-                                      text: messageText,
-                                      phone:
-                                          "${country!.callingCode.substring(1)}$phoneNumber",
-                                      files: pickedFiles,
-                                      link: linkText,
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green,
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  icon: const Icon(
-                                    Icons.send,
-                                    color: Colors.white,
-                                  ),
-                                  label: Text(packageCode == 0
-                                      ? 'To WhatsApp'
-                                      : "To WhatsApp Business"),
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            );
-          },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: serviceLocator.get<IsWhatsappBusinessCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<CountryCodeLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<PhoneNumberLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<PickFilesLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<MessageLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<LinkLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<ToWhatsappLogicCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceLocator.get<AppOpenAdLogicCubit>(),
+          ),
+        ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
+          child: BlocBuilder<IsWhatsappBusinessCubit, int>(
+            builder: (context, packageCode) {
+              return BlocBuilder<CountryCodeLogicCubit, Country?>(
+                builder: (context, country) {
+                  return BlocBuilder<PhoneNumberLogicCubit, String?>(
+                    builder: (context, phoneNumber) {
+                      return BlocBuilder<PickFilesLogicCubit, List<String>>(
+                        builder: (context, pickedFiles) {
+                          return BlocBuilder<MessageLogicCubit, String?>(
+                            builder: (context, messageText) {
+                              return BlocBuilder<LinkLogicCubit, String?>(
+                                builder: (context, linkText) {
+                                  return ElevatedButton.icon(
+                                    onPressed: () {
+                                      sendToWhatsApp(
+                                        context,
+                                        package: packageCode == 0
+                                            ? Package.whatsapp
+                                            : Package.businessWhatsapp,
+                                        text: messageText,
+                                        phone:
+                                            "${country!.callingCode.substring(1)}$phoneNumber",
+                                        files: pickedFiles,
+                                        link: linkText,
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                    icon: const Icon(
+                                      Icons.send,
+                                      color: Colors.white,
+                                    ),
+                                    label: Text(packageCode == 0
+                                        ? 'To WhatsApp'
+                                        : "To WhatsApp Business"),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -83,7 +113,7 @@ class ToWhatsAppButton extends StatelessWidget {
     required String? link,
     required String? text,
   }) async {
-    if (phone.length < 7 ) {
+    if (phone.length < 7) {
       showTheSnackBar(
         context,
         text: "Phone Number is Not Valid",
@@ -99,6 +129,7 @@ class ToWhatsAppButton extends StatelessWidget {
       );
       return;
     }
+    context.read<AppOpenAdLogicCubit>().skipFilePick(true);
     toggleFocus(context);
     context.read<ToWhatsappLogicCubit>().sendToWhatsApp(
           files: files,

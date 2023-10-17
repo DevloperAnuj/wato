@@ -1,8 +1,7 @@
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -19,7 +18,7 @@ class InterAdLogicCubit extends Cubit<InterAdLogicState> {
       ? "ca-app-pub-4097712753507018/8427895213"
       : "ca-app-pub-3940256099942544/1033173712";
 
-  void loadInterAd() async {
+  void loadInterAd(BuildContext context) async {
     emit(InterAdLogicLoading());
     await InterstitialAd.load(
       adUnitId: _interAdId,
@@ -36,11 +35,7 @@ class InterAdLogicCubit extends Cubit<InterAdLogicState> {
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
               _interstitialAd = null;
-              if (Platform.isAndroid) {
-                SystemNavigator.pop(animated: true);
-              } else if (Platform.isIOS) {
-                exit(0);
-              }
+              Navigator.pop(context);
             },
           );
         },

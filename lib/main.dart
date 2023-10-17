@@ -1,12 +1,15 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:wato/config/service_locator.dart';
 
 import 'features/whatsapp_direct/presentation/pages/home_page/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
+  initSetup();
   runApp(const MyApp());
 }
 
@@ -26,7 +29,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({

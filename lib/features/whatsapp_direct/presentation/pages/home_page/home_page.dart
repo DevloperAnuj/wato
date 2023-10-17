@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wato/features/advertisement/presentation/manager/banner_ad_logic/banner_ad_logic_cubit.dart';
-import 'package:wato/features/advertisement/presentation/manager/inter_ad_logic/inter_ad_logic_cubit.dart';
+import 'package:wato/features/advertisement/presentation/widgets/app_open_ad_widget.dart';
 import 'package:wato/features/advertisement/presentation/widgets/baner_ad_widget.dart';
 import 'package:wato/features/advertisement/presentation/widgets/inter_ad_widget.dart';
 import 'package:wato/features/update/presentation/widgets/update_button.dart';
@@ -30,88 +29,55 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) =>
-              CheckPackageLogicCubit()..checkWhatsBusinessInstalled(),
-        ),
-        BlocProvider(
-          create: (context) => IsWhatsappBusinessCubit(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              CountryCodeLogicCubit()..getDefaultCountryCode(context),
-        ),
-        BlocProvider(
-          create: (context) => PhoneNumberLogicCubit(),
-        ),
-        BlocProvider(
-          create: (context) => PickFilesLogicCubit(),
-        ),
-        BlocProvider(
-          create: (context) => MessageLogicCubit(),
-        ),
-        BlocProvider(
-          create: (context) => LinkLogicCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ToWhatsappLogicCubit(),
-        ),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/wato.png',
-                height: 35,
-                width: 40,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/wato.png',
+              height: 35,
+              width: 40,
+            ),
+            const Text(
+              "WAto",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
               ),
-              const Text(
-                "WAto",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          actions: [
-           const UpdateButton(),
+            ),
           ],
-          centerTitle: true,
-          elevation: 0,
         ),
-        body: GestureDetector(
-          onTap: () {
-            toggleFocus(context);
-          },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: BlocBuilder<PickFilesLogicCubit, List<String>>(
-                builder: (context, selectedFiles) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const WhatsBusinessChoice(),
-                      const InputField(),
-                      const FilePicking(),
-                      if (selectedFiles.isEmpty) const JustTextField(),
-                      if (selectedFiles.isEmpty) const LinkTextField(),
-                      const ToWhatsAppButton(),
-                      const InterAdWidget(),
-                    ],
-                  );
-                },
-              ),
+        actions: [
+          const UpdateButton(),
+        ],
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: GestureDetector(
+        onTap: () {
+          toggleFocus(context);
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const WhatsBusinessChoice(),
+                const InputField(),
+                const FilePicking(),
+                const JustTextField(),
+                const LinkTextField(),
+                const ToWhatsAppButton(),
+                const AppOpenAdWidget(),
+                const InterAdWidget(),
+              ],
             ),
           ),
         ),
-        bottomNavigationBar: MyBannerAdWidget(),
       ),
+      bottomNavigationBar: MyBannerAdWidget(),
     );
   }
 
