@@ -17,22 +17,26 @@ class CountryPicker extends StatelessWidget {
       child: BlocProvider(
         create: (context) => serviceLocator.get<CountryCodeLogicCubit>()
           ..getDefaultCountryCode(context),
-        child: InkWell(
-          onTap: () {
-            context.read<CountryCodeLogicCubit>().selectCountryCode(context);
-          },
-          child: BlocBuilder<CountryCodeLogicCubit, Country?>(
-            builder: (context, country) {
-              return CircleAvatar(
-                backgroundImage: country == null
-                    ? null
-                    : AssetImage(
-                        country.flag,
-                        package: countryCodePackageName,
-                      ),
-              );
-            },
-          ),
+        child: Builder(
+          builder: (context) {
+            return InkWell(
+              onTap: () {
+                context.read<CountryCodeLogicCubit>().selectCountryCode(context);
+              },
+              child: BlocBuilder<CountryCodeLogicCubit, Country?>(
+                builder: (context, country) {
+                  return CircleAvatar(
+                    backgroundImage: country == null
+                        ? null
+                        : AssetImage(
+                            country.flag,
+                            package: countryCodePackageName,
+                          ),
+                  );
+                },
+              ),
+            );
+          }
         ),
       ),
     );
