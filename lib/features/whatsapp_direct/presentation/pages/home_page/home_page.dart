@@ -4,6 +4,7 @@ import 'package:wato/features/advertisement/presentation/widgets/baner_ad_widget
 import 'package:wato/features/advertisement/presentation/widgets/inter_exit_popup.dart';
 import 'package:wato/features/update/presentation/widgets/update_button.dart';
 import 'package:wato/features/whatsapp_direct/presentation/pages/home_page/components/just_textfield.dart';
+import '../../../../qr/presentation/pages/generate_qr_page/widgets/to_generate_qr_page_button.dart';
 import 'components/link_textfield.dart';
 import 'components/to_whatsapp_button.dart';
 import 'components/whats_business_choice.dart';
@@ -11,7 +12,6 @@ import 'widgets/file_picking.dart';
 import 'widgets/input_field.dart';
 
 class MyHomePage extends StatelessWidget {
-
   const MyHomePage({super.key});
 
   @override
@@ -60,6 +60,7 @@ class MyHomePage extends StatelessWidget {
                   const LinkTextField(),
                   const ToWhatsAppButton(),
                   const AppOpenAdWidget(),
+                  const ToGenerateQrPageButton(),
                 ],
               ),
             ),

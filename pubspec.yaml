@@ -52,6 +52,10 @@ dependencies:
   get_it: ^7.6.4
   launch_review: ^3.0.1
   qr_bar_code_scanner_dialog: ^0.0.5
+  qr_flutter: ^4.1.0
+  screenshot: ^2.1.0
+  permission_handler: ^11.0.1
+  image_gallery_saver: ^2.0.3
 
 
 dev_dependencies:

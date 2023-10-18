@@ -23,8 +23,8 @@ class MyBannerAdWidget extends StatelessWidget {
             }
             if (adState is BannerAdLogicError) {
               return AppEnv.isProduction
-                  ? Text(adState.err)
-                  : SizedBox.shrink();
+                  ? SizedBox.shrink()
+                  : Text(adState.err);
             }
             if (adState is BannerAdLogicLoaded) {
               return SizedBox(
