@@ -1,16 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'phone_number_logic_state.dart';
 
-class PhoneNumberLogicCubit extends Cubit<String?> {
-  PhoneNumberLogicCubit() : super(null);
+class PhoneNumberLogicCubit extends Cubit<TextEditingController> {
+  PhoneNumberLogicCubit() : super(TextEditingController());
 
-  String? _phoneNumber;
+  TextEditingController _phoneEditingController = TextEditingController();
 
-  void setPhoneNumber(String text) {
-    _phoneNumber = text;
-    emit(_phoneNumber);
+  void setPhoneNumber() async {
+    _phoneEditingController.value = state.value;
+    emit(_phoneEditingController);
   }
 
+  void phoneFromQrCode(String? text) {
+    _phoneEditingController.text = text!;
+    emit(_phoneEditingController);
+  }
 }

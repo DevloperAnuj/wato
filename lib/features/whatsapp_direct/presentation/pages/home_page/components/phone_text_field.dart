@@ -11,20 +11,20 @@ class PhoneTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocProvider(
-        create: (context) => serviceLocator.get<PhoneNumberLogicCubit>(),
+      child: BlocProvider.value(
+        value: serviceLocator.get<PhoneNumberLogicCubit>(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: BlocBuilder<PhoneNumberLogicCubit, String?>(
-            builder: (context, phoneNumber) {
+          child: BlocBuilder<PhoneNumberLogicCubit, TextEditingController>(
+            builder: (context, phoneNumberController) {
               return TextFormField(
                 onChanged: (text) {
-                  context.read<PhoneNumberLogicCubit>().setPhoneNumber(text);
+                  context.read<PhoneNumberLogicCubit>().setPhoneNumber();
                 },
                 style: const TextStyle(color: Colors.black),
                 keyboardType: TextInputType.phone,
                 maxLines: 1,
-                initialValue: phoneNumber,
+                controller: phoneNumberController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Phone No',

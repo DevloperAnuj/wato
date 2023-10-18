@@ -54,7 +54,7 @@ class ToWhatsAppButton extends StatelessWidget {
             builder: (context, packageCode) {
               return BlocBuilder<CountryCodeLogicCubit, Country?>(
                 builder: (context, country) {
-                  return BlocBuilder<PhoneNumberLogicCubit, String?>(
+                  return BlocBuilder<PhoneNumberLogicCubit, TextEditingController>(
                     builder: (context, phoneNumber) {
                       return BlocBuilder<PickFilesLogicCubit, List<String>>(
                         builder: (context, pickedFiles) {
@@ -71,7 +71,7 @@ class ToWhatsAppButton extends StatelessWidget {
                                             : Package.businessWhatsapp,
                                         text: messageText,
                                         phone:
-                                            "${country!.callingCode.substring(1)}$phoneNumber",
+                                            "${country!.callingCode.substring(1)}${phoneNumber.text}",
                                         files: pickedFiles,
                                         link: linkText,
                                       );

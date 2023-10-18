@@ -1,5 +1,4 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wato/config/service_locator.dart';
