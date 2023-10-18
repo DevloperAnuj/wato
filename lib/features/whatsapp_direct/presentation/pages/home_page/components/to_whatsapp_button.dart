@@ -1,7 +1,6 @@
 import 'package:country_calling_code_picker/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_to_whatsapp/whatsapp_share.dart';
 import 'package:wato/config/service_locator.dart';
 import 'package:wato/features/advertisement/presentation/manager/app_open_ad_logic/app_open_ad_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/country_code_logic/country_code_logic_cubit.dart';
@@ -11,6 +10,7 @@ import 'package:wato/features/whatsapp_direct/presentation/manager/message_logic
 import 'package:wato/features/whatsapp_direct/presentation/manager/phone_number_logic/phone_number_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/pick_files_logic/pick_files_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/to_whatsapp_logic/to_whatsapp_logic_cubit.dart';
+import 'package:whatsapp_share2/whatsapp_share2.dart';
 
 class ToWhatsAppButton extends StatelessWidget {
   const ToWhatsAppButton({

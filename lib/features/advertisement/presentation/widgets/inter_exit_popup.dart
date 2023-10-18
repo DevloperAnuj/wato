@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:launch_review/launch_review.dart';
 
-Future<bool> showInterExitPopup(context) async {
+Future<bool> showExitPopup(context) async {
   late bool closeApp = false;
   AwesomeDialog(
     context: context,

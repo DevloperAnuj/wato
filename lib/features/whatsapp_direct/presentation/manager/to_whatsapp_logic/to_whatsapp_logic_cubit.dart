@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:share_to_whatsapp/whatsapp_share.dart';
+import 'package:whatsapp_share2/whatsapp_share2.dart';
 
 part 'to_whatsapp_logic_state.dart';
 

@@ -21,7 +21,9 @@ class CountryPicker extends StatelessWidget {
           builder: (context) {
             return InkWell(
               onTap: () {
-                context.read<CountryCodeLogicCubit>().selectCountryCode(context);
+                context
+                    .read<CountryCodeLogicCubit>()
+                    .selectCountryCode(context);
               },
               child: BlocBuilder<CountryCodeLogicCubit, Country?>(
                 builder: (context, country) {
@@ -36,7 +38,7 @@ class CountryPicker extends StatelessWidget {
                 },
               ),
             );
-          }
+          },
         ),
       ),
     );

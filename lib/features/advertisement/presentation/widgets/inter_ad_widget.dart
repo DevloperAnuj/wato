@@ -16,7 +16,7 @@ class InterAdWidget extends StatelessWidget {
         builder: (context) {
           return WillPopScope(
             onWillPop: () async {
-              return showInterExitPopup(context);
+              return showExitPopup(context);
             },
             child: BlocBuilder<InterAdLogicCubit, InterAdLogicState>(
               builder: (context, state) {
