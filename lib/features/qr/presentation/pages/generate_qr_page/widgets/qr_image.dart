@@ -27,6 +27,7 @@ class _MyQrImageState extends State<MyQrImage> {
                 Screenshot(
                   controller: _screenshotController,
                   child: Container(
+                    width: double.infinity,
                     color: Colors.white,
                     child: Column(
                       children: [

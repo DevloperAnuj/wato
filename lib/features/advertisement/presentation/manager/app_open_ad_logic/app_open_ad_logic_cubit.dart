@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'dart:math' as math;
 
 import '../../../../../config/app_env.dart';
 
@@ -28,7 +29,7 @@ class AppOpenAdLogicCubit extends Cubit<AppOpenAdLogicState> {
     // Try to show an app open ad if the app is being resumed and
     // we're not already showing an app open ad.
     if (appState == AppState.foreground) {
-      if (filePickCall) {
+      if (filePickCall && math.Random().nextBool()) {
         _displayAppOpenAd();
       } else {
         filePickCall = true;
