@@ -41,6 +41,7 @@ dependencies:
   whatsapp_share2:
     git:
       url: https://github.com/DevloperAnuj/whatsapp_share_wato.git
+  open_share_plus: ^1.2.0
   file_picker: ^6.0.0
   chips_choice: ^3.0.1
   path: ^1.8.3
