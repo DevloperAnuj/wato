@@ -55,7 +55,7 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   const WhatsBusinessChoice(),
                   const InputField(),
-                  const FilePicking(),
+                  // const FilePicking(),
                   const JustTextField(),
                   const LinkTextField(),
                   const ToWhatsAppButton(),

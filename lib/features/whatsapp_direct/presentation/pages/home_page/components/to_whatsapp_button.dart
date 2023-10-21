@@ -10,7 +10,6 @@ import 'package:wato/features/whatsapp_direct/presentation/manager/message_logic
 import 'package:wato/features/whatsapp_direct/presentation/manager/phone_number_logic/phone_number_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/pick_files_logic/pick_files_logic_cubit.dart';
 import 'package:wato/features/whatsapp_direct/presentation/manager/to_whatsapp_logic/to_whatsapp_logic_cubit.dart';
-import 'package:whatsapp_share2/whatsapp_share2.dart';
 
 class ToWhatsAppButton extends StatelessWidget {
   const ToWhatsAppButton({
@@ -54,7 +53,8 @@ class ToWhatsAppButton extends StatelessWidget {
             builder: (context, packageCode) {
               return BlocBuilder<CountryCodeLogicCubit, Country?>(
                 builder: (context, country) {
-                  return BlocBuilder<PhoneNumberLogicCubit, TextEditingController>(
+                  return BlocBuilder<PhoneNumberLogicCubit,
+                      TextEditingController>(
                     builder: (context, phoneNumber) {
                       return BlocBuilder<PickFilesLogicCubit, List<String>>(
                         builder: (context, pickedFiles) {
@@ -66,9 +66,7 @@ class ToWhatsAppButton extends StatelessWidget {
                                     onPressed: () {
                                       sendToWhatsApp(
                                         context,
-                                        package: packageCode == 0
-                                            ? Package.whatsapp
-                                            : Package.businessWhatsapp,
+                                        packageCode: packageCode,
                                         text: messageText,
                                         phone:
                                             "${country!.callingCode.substring(1)}${phoneNumber.text}",
@@ -108,7 +106,7 @@ class ToWhatsAppButton extends StatelessWidget {
   Future<void> sendToWhatsApp(
     BuildContext context, {
     required List<String> files,
-    required Package package,
+    required int packageCode,
     required String phone,
     required String? link,
     required String? text,
@@ -132,7 +130,7 @@ class ToWhatsAppButton extends StatelessWidget {
     toggleFocus(context);
     context.read<ToWhatsappLogicCubit>().sendToWhatsApp(
           files: files,
-          package: package,
+          packageCode: packageCode,
           phone: phone,
           link: link,
           text: text,
