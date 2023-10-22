@@ -62,29 +62,37 @@ class ToWhatsAppButton extends StatelessWidget {
                             builder: (context, messageText) {
                               return BlocBuilder<LinkLogicCubit, String?>(
                                 builder: (context, linkText) {
-                                  return ElevatedButton.icon(
-                                    onPressed: () {
-                                      sendToWhatsApp(
-                                        context,
-                                        packageCode: packageCode,
-                                        text: messageText,
-                                        phone:
-                                            "${country!.callingCode.substring(1)}${phoneNumber.text}",
-                                        files: pickedFiles,
-                                        link: linkText,
+                                  return BlocBuilder<ToWhatsappLogicCubit,
+                                      ToWhatsappLogicState>(
+                                    builder: (context, state) {
+                                      if (state is ToWhatsappLogicLoading) {
+                                        return Center(child: CircularProgressIndicator());
+                                      }
+                                      return ElevatedButton.icon(
+                                        onPressed: () {
+                                          sendToWhatsApp(
+                                            context,
+                                            packageCode: packageCode,
+                                            text: messageText,
+                                            phone:
+                                                "${country!.callingCode.substring(1)}${phoneNumber.text}",
+                                            files: pickedFiles,
+                                            link: linkText,
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                          foregroundColor: Colors.white,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                        ),
+                                        label: Text(packageCode == 0
+                                            ? 'To WhatsApp'
+                                            : "To WhatsApp Business"),
                                       );
                                     },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
-                                      foregroundColor: Colors.white,
-                                    ),
-                                    icon: const Icon(
-                                      Icons.send,
-                                      color: Colors.white,
-                                    ),
-                                    label: Text(packageCode == 0
-                                        ? 'To WhatsApp'
-                                        : "To WhatsApp Business"),
                                   );
                                 },
                               );

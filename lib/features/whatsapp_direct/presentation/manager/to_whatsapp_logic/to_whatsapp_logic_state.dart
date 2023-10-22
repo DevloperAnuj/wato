@@ -8,3 +8,19 @@ class ToWhatsappLogicInitial extends ToWhatsappLogicState {
   @override
   List<Object> get props => [];
 }
+
+
+class ToWhatsappLogicLoading extends ToWhatsappLogicState {
+  @override
+  List<Object> get props => [];
+}
+
+class ToWhatsappLogicSuccess extends ToWhatsappLogicState {
+  @override
+  List<Object> get props => [];
+}
+
+class ToWhatsappLogicFailed extends ToWhatsappLogicState {
+  @override
+  List<Object> get props => [];
+}

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wato/features/update/presentation/manager/check_update_logic/check_update_logic_cubit.dart';
 
 class UpdateButton extends StatelessWidget {
+
   const UpdateButton({super.key});
 
   @override
@@ -16,7 +17,9 @@ class UpdateButton extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<CheckUpdateLogicCubit>().goToPlayStore();
+                  },
                   child: Text('Update'),
                   style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold)),

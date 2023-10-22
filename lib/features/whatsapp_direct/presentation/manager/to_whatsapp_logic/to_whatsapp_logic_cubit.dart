@@ -17,6 +17,7 @@ class ToWhatsappLogicCubit extends Cubit<ToWhatsappLogicState> {
     required String? link,
     required String? text,
   }) async {
+    emit(ToWhatsappLogicLoading());
     if (files.isNotEmpty) {
       // await WhatsappShare.shareFile(
       //   filePath: files,
@@ -25,16 +26,22 @@ class ToWhatsappLogicCubit extends Cubit<ToWhatsappLogicState> {
       //   package: package,
       // );
     } else {
-      towardWhatsApp(
+      await towardWhatsApp(
         number: phone,
         package: packageCode,
         message: text,
         link: link,
-      );
+      ).then((_) {
+        Future.delayed(Duration(seconds: 2), () {
+          emit(ToWhatsappLogicSuccess());
+        });
+      }).onError((error, stackTrace) {
+        emit(ToWhatsappLogicFailed());
+      });
     }
   }
 
-  void towardWhatsApp({
+  Future<void> towardWhatsApp({
     required String number,
     required int package,
     String? message,
@@ -51,6 +58,6 @@ class ToWhatsappLogicCubit extends Cubit<ToWhatsappLogicState> {
       devLogger.d(result);
     } catch (e) {
       devLogger.e(e);
-    }
+    } finally {}
   }
 }
