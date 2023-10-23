@@ -19,7 +19,7 @@ const val WHATSAPP_B_PACKAGE = "com.whatsapp.w4b"
 
 class MainActivity : FlutterActivity() {
     private val WA_METHOD_CHANNEL_NAME = "whats-app-channel"
-    private var methodChannel: MethodChannel? = null
+
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -110,7 +110,7 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun tearDownChannel() {
-        methodChannel!!.setMethodCallHandler(null)
+
     }
 
 }
