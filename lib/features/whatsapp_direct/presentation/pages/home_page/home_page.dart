@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wato/config/app_env.dart';
 import 'package:wato/features/advertisement/presentation/widgets/app_open_ad_widget.dart';
 import 'package:wato/features/advertisement/presentation/widgets/baner_ad_widget.dart';
 import 'package:wato/features/advertisement/presentation/widgets/inter_exit_popup.dart';
@@ -59,7 +60,7 @@ class MyHomePage extends StatelessWidget {
                   const JustTextField(),
                   const LinkTextField(),
                   const ToWhatsAppButton(),
-                  const AppOpenAdWidget(),
+                  if (!AppEnv.forPersonal) const AppOpenAdWidget(),
                   const ToGenerateQrPageButton(),
                 ],
               ),
@@ -67,7 +68,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: MyBannerAdWidget(),
+      bottomNavigationBar: !AppEnv.forPersonal ? MyBannerAdWidget() : null,
     );
   }
 

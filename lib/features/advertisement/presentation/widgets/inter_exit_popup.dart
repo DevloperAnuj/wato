@@ -29,6 +29,7 @@ Future<bool> showExitPopup(context) async {
     btnOkOnPress: () async {
       await LaunchReview.launch().onError((error, stackTrace) => print(error));
     },
+    btnOkText: "Review",
     headerAnimationLoop: false,
     dismissOnBackKeyPress: true,
   )..show();

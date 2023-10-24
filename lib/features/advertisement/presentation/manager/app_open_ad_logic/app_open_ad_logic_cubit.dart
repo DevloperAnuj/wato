@@ -29,7 +29,9 @@ class AppOpenAdLogicCubit extends Cubit<AppOpenAdLogicState> {
     // Try to show an app open ad if the app is being resumed and
     // we're not already showing an app open ad.
     if (appState == AppState.foreground) {
-      if (filePickCall && math.Random().nextBool()) {
+      if (filePickCall &&
+          math.Random().nextBool() &&
+          math.Random().nextBool()) {
         _displayAppOpenAd();
       } else {
         filePickCall = true;
