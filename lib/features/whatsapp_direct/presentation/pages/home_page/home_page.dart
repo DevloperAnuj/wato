@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget {
                   const JustTextField(),
                   const LinkTextField(),
                   const ToWhatsAppButton(),
-                  if (!AppEnv.forPersonal) const AppOpenAdWidget(),
+                  const AppOpenAdWidget(),
                   const ToGenerateQrPageButton(),
                 ],
               ),
@@ -68,7 +68,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: !AppEnv.forPersonal ? MyBannerAdWidget() : null,
+      bottomNavigationBar: MyBannerAdWidget(),
     );
   }
 

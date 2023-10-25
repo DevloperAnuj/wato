@@ -10,33 +10,37 @@ class MyBannerAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          serviceLocator.get<BannerAdLogicCubit>()..initBannerAd(),
-      child: Builder(builder: (context) {
-        return BlocBuilder<BannerAdLogicCubit, BannerAdLogicState>(
-          builder: (context, adState) {
-            if (adState is BannerAdLogicLoading) {
-              return AppEnv.isProduction
-                  ? SizedBox.shrink()
-                  : LinearProgressIndicator();
-            }
-            if (adState is BannerAdLogicError) {
-              return AppEnv.isProduction
-                  ? SizedBox.shrink()
-                  : Text(adState.err);
-            }
-            if (adState is BannerAdLogicLoaded) {
-              return SizedBox(
-                width: adState.ad.size.width.toDouble(),
-                height: adState.ad.size.height.toDouble(),
-                child: AdWidget(ad: adState.ad),
-              );
-            }
-            return SizedBox.shrink();
-          },
-        );
-      }),
-    );
+    return AppEnv.forPersonal
+        ? SizedBox.shrink()
+        : BlocProvider(
+            create: (context) =>
+                serviceLocator.get<BannerAdLogicCubit>()..initBannerAd(),
+            child: Builder(
+              builder: (context) {
+                return BlocBuilder<BannerAdLogicCubit, BannerAdLogicState>(
+                  builder: (context, adState) {
+                    if (adState is BannerAdLogicLoading) {
+                      return AppEnv.isProduction
+                          ? SizedBox.shrink()
+                          : LinearProgressIndicator();
+                    }
+                    if (adState is BannerAdLogicError) {
+                      return AppEnv.isProduction
+                          ? SizedBox.shrink()
+                          : Text(adState.err);
+                    }
+                    if (adState is BannerAdLogicLoaded) {
+                      return SizedBox(
+                        width: adState.ad.size.width.toDouble(),
+                        height: adState.ad.size.height.toDouble(),
+                        child: AdWidget(ad: adState.ad),
+                      );
+                    }
+                    return SizedBox.shrink();
+                  },
+                );
+              },
+            ),
+          );
   }
 }
