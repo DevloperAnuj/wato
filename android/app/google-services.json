@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205383182979",
+    "project_id": "wato-d7470",
+    "storage_bucket": "wato-d7470.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205383182979:android:b59f3019c5b378e5d2c9b6",
+        "android_client_info": {
+          "package_name": "inc.imalpha.wato"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlCv8GQyPMnlQm37r7JBzl-lY8HtmhNbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
