@@ -51,7 +51,6 @@ class AppOpenAdLogicCubit extends Cubit<AppOpenAdLogicState> {
   void _loadAppOpenAd() async {
     await AppOpenAd.load(
       adUnitId: _appOpenAdId,
-      orientation: AppOpenAd.orientationPortrait,
       request: const AdRequest(),
       adLoadCallback: await AppOpenAdLoadCallback(
         onAdLoaded: (ad) {

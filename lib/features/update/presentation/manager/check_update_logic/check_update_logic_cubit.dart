@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_launch_store/flutter_launch_store.dart';
+import 'package:store_launcher_plus/store_launcher_plus.dart';
 import 'package:update_available/update_available.dart';
 
 part 'check_update_logic_state.dart';
@@ -23,11 +23,12 @@ class CheckUpdateLogicCubit extends Cubit<CheckUpdateLogicState> {
     }
   }
 
-  goToPlayStore() {
+  goToPlayStore() async {
     try {
       final appId = 'inc.imalpha.wato';
-      StoreLauncher.openWithStore(appId).catchError((e) {
-        print('ERROR> $e');
+        await StoreLauncher.launchPlayStore(packageName: appId).catchError((e) {
+         print('ERROR> $e');
+         return e;
       });
     } catch (e) {
       print(e.toString());
