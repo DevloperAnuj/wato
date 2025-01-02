@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:launch_review/launch_review.dart';
@@ -27,6 +28,7 @@ Future<bool> showExitPopup(context) async {
       ),
     ),
     btnOkOnPress: () async {
+      await FirebaseAnalytics.instance.logEvent(name: "appReview");
       await LaunchReview.launch().onError((error, stackTrace) => print(error));
     },
     btnOkText: "Review",

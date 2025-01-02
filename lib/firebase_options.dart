@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:205383182979:android:b59f3019c5b378e5d2c9b6',
     messagingSenderId: '205383182979',
     projectId: 'wato-d7470',
-    storageBucket: 'wato-d7470.appspot.com',
+    storageBucket: 'wato-d7470.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,8 @@ class DefaultFirebaseOptions {
     appId: '1:205383182979:ios:3b827a3fc17f9cf8d2c9b6',
     messagingSenderId: '205383182979',
     projectId: 'wato-d7470',
-    storageBucket: 'wato-d7470.appspot.com',
+    storageBucket: 'wato-d7470.firebasestorage.app',
     iosBundleId: 'inc.imalpha.wato',
   );
+
 }

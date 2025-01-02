@@ -6,6 +6,7 @@ import 'package:wato/config/service_locator.dart';
 
 import 'features/whatsapp_direct/presentation/pages/home_page/home_page.dart';
 import 'firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await MobileAds.instance.initialize();
+  await FirebaseAnalytics.instance.logAppOpen();
   initSetup();
   runApp(const MyApp());
 }
